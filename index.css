@@ -1,0 +1,302 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    padding: 1rem;
+}
+
+.ingredients-panel {
+    width: 300px;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-right: 1rem;
+}
+
+.workspace {
+    flex: 1;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 600px;
+    position: relative;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.ingredient {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    cursor: grab;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.ingredient:active {
+    cursor: grabbing;
+}
+
+.pot {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 5px 5px 50% 50%;
+    background-color: #f0f0f0;
+    border: 2px solid #666;
+    cursor: grab;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    overflow: visible;
+}
+
+.pot:active {
+    cursor: grabbing;
+}
+
+.pot-label {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #ddd;
+    border-radius: 3px 3px 0 0;
+}
+
+.pot-ingredients {
+    position: relative;
+    width: 100%;
+    height: 80%;
+    border-radius: 0 0 50% 50%;
+}
+
+.ingredient-in-pot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+/* Add visual indicator for when pot is a valid drop target */
+.pot.valid-target {
+    box-shadow: 0 0 10px rgba(0,255,0,0.7);
+}
+
+.pot.invalid-target {
+    box-shadow: 0 0 10px rgba(255,0,0,0.7);
+}
+
+/* Add these styles to your index.css file */
+
+.mixing-machine {
+    position: absolute;
+    width: 150px;
+    height: 220px;
+    background-color: #555;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    z-index: 2;
+}
+
+.machine-label {
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #333;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.machine-input-slot {
+    width: 100px;
+    height: 60px;
+    margin: 10px auto 0;
+    background-color: #777;
+    border: 2px dashed #aaa;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.machine-mixing-chamber {
+    width: 120px;
+    height: 60px;
+    margin: 10px auto;
+    background-color: #666;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.machine-output-slot {
+    width: 100px;
+    height: 60px;
+    margin: 0 auto 10px;
+    background-color: #777;
+    border: 2px dashed #aaa;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: #ddd;
+}
+
+.mixing-animation {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 10px,
+        rgba(255, 255, 255, 0.2) 10px,
+        rgba(255, 255, 255, 0.2) 20px
+    );
+    animation: mix 1s linear infinite;
+}
+
+@keyframes mix {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+.mixing-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #444;
+}
+
+.mixing-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #4CAF50;
+}
+
+.mixing-machine.mixing .machine-mixing-chamber {
+    background-color: #008CBA;
+}
+
+.mixed {
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.weather-section, .machine-section, .hall-section {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#weatherDisplay {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    z-index: 1000;
+}
+
+.hall-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.hall-button {
+    flex: 1;
+    background-color: #ddd;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.hall-button.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#workspace2 {
+    flex: 1;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 600px;
+    position: relative;
+}
+
+hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}

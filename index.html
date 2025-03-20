@@ -1,11 +1,89 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Future Color</title>
-    <script src="index.js"></script>
+    <title>Future Color - Paint Simulator</title>
+    <link rel="stylesheet" href="index.css"
 </head>
 <body>
+    <header>
+        <h1>Future Color - Paint Simulator</h1>
+    </header>
     
+    <div class="container">
+        <div class="ingredients-panel">
+            <h2>Create Ingredient</h2>
+            <form id="ingredientForm">
+                <div class="form-group">
+                    <label for="mixTime">Mix Time (ms):</label>
+                    <input type="number" id="mixTime" min="1000" step="500" value="2000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="mixSpeed">Mix Speed:</label>
+                    <select id="mixSpeed">
+                        <option value="slow">Slow</option>
+                        <option value="medium">Medium</option>
+                        <option value="fast">Fast</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="colorType">Color Type:</label>
+                    <select id="colorType">
+                        <option value="rgb">RGB</option>
+                        <option value="hsl">HSL</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="rgbControls">
+                    <label for="red">Red (0-255):</label>
+                    <input type="range" id="red" min="0" max="255" value="128">
+                    <span id="redValue">128</span>
+                    
+                    <label for="green">Green (0-255):</label>
+                    <input type="range" id="green" min="0" max="255" value="128">
+                    <span id="greenValue">128</span>
+                    
+                    <label for="blue">Blue (0-255):</label>
+                    <input type="range" id="blue" min="0" max="255" value="128">
+                    <span id="blueValue">128</span>
+                </div>
+                
+                <div class="form-group" id="hslControls" style="display: none;">
+                    <label for="hue">Hue (0-360):</label>
+                    <input type="range" id="hue" min="0" max="360" value="180">
+                    <span id="hueValue">180</span>
+                    
+                    <label for="saturation">Saturation (0-100%):</label>
+                    <input type="range" id="saturation" min="0" max="100" value="50">
+                    <span id="saturationValue">50</span>
+                    
+                    <label for="lightness">Lightness (0-100%):</label>
+                    <input type="range" id="lightness" min="0" max="100" value="50">
+                    <span id="lightnessValue">50</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="structure">Structure:</label>
+                    <select id="structure">
+                        <option value="grain">Grain</option>
+                        <option value="coarse">Coarse Grain</option>
+                        <option value="smooth">Smooth</option>
+                        <option value="slimy">Slimy</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Create Ingredient</button>
+            </form>
+        </div>
+        
+        <div class="workspace" id="workspace">
+            <!-- Ingredients will be added here dynamically -->
+        </div>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 </html>
