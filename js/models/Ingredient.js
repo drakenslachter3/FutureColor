@@ -1,4 +1,4 @@
-class Ingredient {
+export default class Ingredient {
     constructor(mixTime, mixSpeed, color, structure) {
         this.mixTime = mixTime;
         this.mixSpeed = mixSpeed;

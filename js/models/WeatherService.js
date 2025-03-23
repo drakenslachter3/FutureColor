@@ -1,4 +1,4 @@
-class WeatherService {
+export default class WeatherService {
     constructor() {
         this.currentWeather = {
             temperature: 20,

@@ -1,4 +1,4 @@
-class Pot {
+export default class Pot {
     constructor() {
         this.ingredients = [];
         this.mixSpeed = null; // Will be set based on first ingredient added

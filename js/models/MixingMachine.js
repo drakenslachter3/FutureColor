@@ -1,4 +1,4 @@
-class MixingMachine {
+export default class MixingMachine {
     constructor(mixSpeed, mixTime) {
         this.mixSpeed = mixSpeed;
         this.mixTime = mixTime;
