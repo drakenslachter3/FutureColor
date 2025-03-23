@@ -1,3 +1,5 @@
+import DraggableUtil from "../utils/DraggableUtils.js";
+
 export default class MixingMachine {
     constructor(mixSpeed, mixTime) {
         this.mixSpeed = mixSpeed;
@@ -61,45 +63,11 @@ export default class MixingMachine {
     }
     
     makeDraggable(element) {
-        let isDragging = false;
-        let offsetX, offsetY;
-        
-        element.addEventListener('mousedown', (e) => {
-            // Don't drag if we're mixing or clicking on a specific element
-            if (this.isMixing || e.target.classList.contains('machine-input-slot') || 
-                e.target.classList.contains('machine-output-slot')) {
-                return;
-            }
-            
-            isDragging = true;
-            const rect = element.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            element.style.zIndex = 1000; // Bring to front
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            
-            const workspace = document.getElementById('workspace');
-            const workspaceRect = workspace.getBoundingClientRect();
-            
-            // Calculate new position within bounds of workspace
-            let newX = e.clientX - workspaceRect.left - offsetX;
-            let newY = e.clientY - workspaceRect.top - offsetY;
-            
-            // Constrain to workspace boundaries
-            newX = Math.max(0, Math.min(newX, workspaceRect.width - element.offsetWidth));
-            newY = Math.max(0, Math.min(newY, workspaceRect.height - element.offsetHeight));
-            
-            element.style.left = newX + 'px';
-            element.style.top = newY + 'px';
-        });
-        
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                element.style.zIndex = 1; // Reset z-index
+        DraggableUtil.makeDraggable(element, {
+            shouldDrag: (e) => {
+                return !this.isMixing && 
+                       !e.target.classList.contains('machine-input-slot') &&
+                       !e.target.classList.contains('machine-output-slot');
             }
         });
     }

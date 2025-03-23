@@ -1,3 +1,5 @@
+import DraggableUtil from "../utils/DraggableUtils.js";
+
 export default class Ingredient {
     constructor(mixTime, mixSpeed, color, structure) {
         this.mixTime = mixTime;
@@ -50,6 +52,10 @@ export default class Ingredient {
         return element;
     }
     
+    makeDraggable(element) {
+        DraggableUtil.makeDraggable(element);
+    }
+    
     applyStructure(element) {
         switch (this.structure) {
             case 'grain':
@@ -82,43 +88,5 @@ export default class Ingredient {
                 }
                 break;
         }
-    }
-    
-    makeDraggable(element) {
-        let isDragging = false;
-        let offsetX, offsetY;
-        
-        element.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            const rect = element.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            element.style.zIndex = 1000; // Bring to front
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            
-            const workspace = document.getElementById('workspace');
-            const workspaceRect = workspace.getBoundingClientRect();
-            
-            // Calculate new position within bounds of workspace
-            let newX = e.clientX - workspaceRect.left - offsetX;
-            let newY = e.clientY - workspaceRect.top - offsetY;
-            
-            // Constrain to workspace boundaries
-            newX = Math.max(0, Math.min(newX, workspaceRect.width - element.offsetWidth));
-            newY = Math.max(0, Math.min(newY, workspaceRect.height - element.offsetHeight));
-            
-            element.style.left = newX + 'px';
-            element.style.top = newY + 'px';
-        });
-        
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                element.style.zIndex = 1; // Reset z-index
-            }
-        });
     }
 }

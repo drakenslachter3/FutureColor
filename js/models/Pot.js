@@ -1,3 +1,6 @@
+import DraggableUtil from "../utils/DraggableUtils.js";
+import { hslToRgb } from "../utils/ColorUtils.js";
+
 export default class Pot {
     constructor() {
         this.ingredients = [];
@@ -41,46 +44,13 @@ export default class Pot {
     }
     
     makeDraggable(element) {
-        let isDragging = false;
-        let offsetX, offsetY;
-        
-        element.addEventListener('mousedown', (e) => {
-            // Prevent dragging when clicking on an ingredient inside the pot
-            if (e.target.classList.contains('ingredient-in-pot')) {
-                return;
-            }
-            
-            isDragging = true;
-            const rect = element.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            element.style.zIndex = 1000; // Bring to front
+        DraggableUtil.makeDraggable(element, {
+            shouldDrag: (e) => !e.target.classList.contains('ingredient-in-pot')
         });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            
-            const workspace = document.getElementById('workspace');
-            const workspaceRect = workspace.getBoundingClientRect();
-            
-            // Calculate new position within bounds of workspace
-            let newX = e.clientX - workspaceRect.left - offsetX;
-            let newY = e.clientY - workspaceRect.top - offsetY;
-            
-            // Constrain to workspace boundaries
-            newX = Math.max(0, Math.min(newX, workspaceRect.width - element.offsetWidth));
-            newY = Math.max(0, Math.min(newY, workspaceRect.height - element.offsetHeight));
-            
-            element.style.left = newX + 'px';
-            element.style.top = newY + 'px';
-        });
-        
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-                element.style.zIndex = 1; // Reset z-index
-            }
-        });
+    }
+
+    getColor() {
+        return hslToRgb(this.hue, this.saturation, this.lightness);
     }
     
     setupDropZone(element) {
@@ -208,7 +178,7 @@ export default class Pot {
             } 
             // If HSL, convert to RGB first
             else if (color.h !== undefined) {
-                const rgb = this.hslToRgb(color.h, color.s, color.l);
+                const rgb = this.getColor(color.h, color.s, color.l);
                 red += rgb.r;
                 green += rgb.g;
                 blue += rgb.b;
@@ -285,37 +255,5 @@ export default class Pot {
             return `hsl(${color.h}, ${color.s}%, ${color.l}%)`;
         }
         return 'black'; // Fallback
-    }
-    
-    // Helper function to convert HSL to RGB
-    hslToRgb(h, s, l) {
-        s /= 100;
-        l /= 100;
-        
-        const c = (1 - Math.abs(2 * l - 1)) * s;
-        const x = c * (1 - Math.abs((h / 60) % 2 - 1));
-        const m = l - c / 2;
-        
-        let r, g, b;
-        
-        if (0 <= h && h < 60) {
-            [r, g, b] = [c, x, 0];
-        } else if (60 <= h && h < 120) {
-            [r, g, b] = [x, c, 0];
-        } else if (120 <= h && h < 180) {
-            [r, g, b] = [0, c, x];
-        } else if (180 <= h && h < 240) {
-            [r, g, b] = [0, x, c];
-        } else if (240 <= h && h < 300) {
-            [r, g, b] = [x, 0, c];
-        } else {
-            [r, g, b] = [c, 0, x];
-        }
-        
-        return {
-            r: Math.round((r + m) * 255),
-            g: Math.round((g + m) * 255),
-            b: Math.round((b + m) * 255)
-        };
     }
 }
