@@ -1,7 +1,7 @@
 import WeatherService from "../models/WeatherService.js";
 
-export default class WeatherController {
-    constructor(defaultLocation = 'Amsterdam') {
+export default class WeatherServiceController {
+    constructor(defaultLocation) {
         this.weatherService = new WeatherService();
         this.defaultLocation = defaultLocation;
         this.ingredientsPanel = null;

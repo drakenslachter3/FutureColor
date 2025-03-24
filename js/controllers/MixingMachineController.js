@@ -1,9 +1,9 @@
 import MixingMachine from "../models/MixingMachine.js";
 
 export default class MixingMachineController {
-    constructor(weatherController) {
+    constructor(weatherServiceController) {
         this.ingredientsPanel = null;
-        this.weatherController = weatherController;
+        this.weatherServiceController = weatherServiceController;
         this.machines = [];
         this.currentHallId = 'hall1';
     }
@@ -48,7 +48,7 @@ export default class MixingMachineController {
         const mixTime = parseInt(document.getElementById('machineMixTime').value);
         
         // Check temperature limit
-        if (this.weatherController.tempHighAlert) {
+        if (this.weatherServiceController.tempHighAlert) {
             // Count active machines in this hall
             const activeMachines = this.getMachinesInCurrentHall().filter(m => m.isMixing);
             if (activeMachines.length > 0) {
@@ -76,7 +76,7 @@ export default class MixingMachineController {
         machine.render();
         
         // Register with weather service
-        this.weatherController.registerMachine(machine);
+        this.weatherServiceController.registerMachine(machine);
         
         // Add to machines collection
         this.machines.push({
