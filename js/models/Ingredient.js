@@ -1,12 +1,13 @@
 import DraggableUtil from "../utils/DraggableUtils.js";
 
 export default class Ingredient {
-  constructor(mixTime, mixSpeed, color, structure) {
+  constructor(mixTime, mixSpeed, color, structure, hallController) {
     this.mixTime = mixTime;
     this.mixSpeed = mixSpeed;
     this.color = color;
     this.structure = structure;
     this.element = null;
+    this.hallController = hallController;
     this.id =
       "ingredient_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
   }
@@ -19,7 +20,9 @@ export default class Ingredient {
     element.dataset.mixSpeed = this.mixSpeed;
     element.dataset.structure = this.structure;
 
-    const currentWorkspace = document.querySelector(".workspace:not([style*='display: none'])");
+    const currentWorkspace = document.querySelector(
+      ".workspace:not([style*='display: none'])"
+    );
     const workspaceRect = currentWorkspace.getBoundingClientRect();
     const maxX = workspaceRect.width - 60;
     const maxY = workspaceRect.height - 60;
@@ -43,6 +46,7 @@ export default class Ingredient {
 
     this.element = element;
     currentWorkspace.appendChild(element);
+
     return element;
   }
 

@@ -1,11 +1,12 @@
 import Ingredient from "../models/Ingredient.js";
 
 export default class IngredientController {
-  constructor() {
+  constructor(hallController) {
     this.colorType = null;
     this.rgbControls = null;
     this.hslControls = null;
     this.ingredientForm = null;
+    this.hallController = hallController;
   }
 
   initializeControls() {
@@ -65,7 +66,13 @@ export default class IngredientController {
         };
       }
 
-      const ingredient = new Ingredient(mixTime, mixSpeed, color, structure);
+      const ingredient = new Ingredient(
+        mixTime,
+        mixSpeed,
+        color,
+        structure,
+        this.hallController
+      );
       ingredient.render();
     });
   }

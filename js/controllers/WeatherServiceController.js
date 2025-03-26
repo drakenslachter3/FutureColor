@@ -38,7 +38,9 @@ export default class WeatherServiceController {
       .getElementById("updateWeatherButton")
       .addEventListener("click", () => {
         const location = document.getElementById("weatherLocation").value;
-        if (!location) return;
+        if (!location) {
+          return;
+        }
 
         this.weatherService.fetchWeather(location);
       });

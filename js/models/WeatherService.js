@@ -11,8 +11,9 @@ export default class WeatherService {
     try {
       const url = `${this.apiUrl}?q=${location}&units=metric&APPID=${this.apiKey}`;
       const response = await fetch(url);
-      if (!response.ok)
+      if (!response.ok) {
         throw new Error(`OpenWeather API error: ${response.statusText}`);
+      }
       const data = await response.json();
 
       const temperature = data.main.temp;
@@ -97,7 +98,9 @@ export default class WeatherService {
       weatherText += " ☀️";
     }
 
-    if (this.tempHighAlert) weatherText += " 🔥 HIGH TEMP ALERT!";
+    if (this.tempHighAlert) {
+      weatherText += " 🔥 HIGH TEMP ALERT!";
+    }
 
     weatherDisplay.textContent = weatherText;
   }

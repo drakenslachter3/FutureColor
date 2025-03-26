@@ -3,13 +3,16 @@ export default class HallController {
     this.halls = {
       hall1: {
         element: null,
+        ingredients: [],
       },
       hall2: {
         element: null,
+        ingredients: [],
       },
     };
     this.mixingMachineController = null;
     this.ingredientsPanel = null;
+    this.currentHall = "hall1";
   }
 
   registerMixingMachineController(mixingMachineController) {
@@ -63,10 +66,25 @@ export default class HallController {
     const buttonId = hallId === "hall1" ? "hall1Button" : "hall2Button";
     document.getElementById(buttonId).classList.add("active");
 
-    this.halls.hall1.element.style.display =
-      hallId === "hall1" ? "block" : "none";
-    this.halls.hall2.element.style.display =
-      hallId === "hall2" ? "block" : "none";
+    Object.keys(this.halls).forEach((key) => {
+      if (key === hallId) {
+        this.halls[key].element.style.display = "block";
+      } else {
+        this.halls[key].element.style.display = "none";
+      }
+
+      this.halls[key].ingredients = Array.from(
+        this.halls[key].element.querySelectorAll(".ingredient")
+      );
+    });
+
+    Object.keys(this.halls).forEach((key) => {
+      this.halls[key].ingredients.forEach((ingredient) => {
+        this.halls[hallId].element.appendChild(ingredient);
+      });
+    });
+
+    this.currentHall = hallId;
 
     if (this.mixingMachineController) {
       this.mixingMachineController.setCurrentHall(hallId);
