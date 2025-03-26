@@ -1,23 +1,22 @@
 import MixingMachine from "../models/MixingMachine.js";
 
 export default class MixingMachineController {
-    constructor(weatherServiceController) {
-        this.ingredientsPanel = null;
-        this.weatherServiceController = weatherServiceController;
-        this.machines = [];
-        this.currentHallId = 'hall1';
-    }
-    
-    initializeControls() {
-        this.ingredientsPanel = document.querySelector('.ingredients-panel');
-        this.setupMachineControls();
-    }
-    
-    setupMachineControls() {
-        // Add a section for creating mixing machines
-        const machineSection = document.createElement('div');
-        machineSection.className = 'machine-section';
-        machineSection.innerHTML = `
+  constructor(weatherServiceController) {
+    this.ingredientsPanel = null;
+    this.weatherServiceController = weatherServiceController;
+    this.machines = [];
+    this.currentHallId = "hall1";
+  }
+
+  initializeControls() {
+    this.ingredientsPanel = document.querySelector(".ingredients-panel");
+    this.setupMachineControls();
+  }
+
+  setupMachineControls() {
+    const machineSection = document.createElement("div");
+    machineSection.className = "machine-section";
+    machineSection.innerHTML = `
             <h2>Create Mixing Machine</h2>
             <div class="form-group">
                 <label for="machineMixSpeed">Mix Speed:</label>
@@ -33,65 +32,52 @@ export default class MixingMachineController {
             </div>
             <button id="createMachineButton">Create Mixing Machine</button>
         `;
-        
-        this.ingredientsPanel.appendChild(document.createElement('hr'));
-        this.ingredientsPanel.appendChild(machineSection);
-        
-        // Event listener for machine creation
-        document.getElementById('createMachineButton').addEventListener('click', () => {
-            this.createMachine();
-        });
+
+    this.ingredientsPanel.appendChild(document.createElement("hr"));
+    this.ingredientsPanel.appendChild(machineSection);
+
+    document
+      .getElementById("createMachineButton")
+      .addEventListener("click", () => {
+        this.createMachine();
+      });
+  }
+
+  createMachine() {
+    const mixSpeed = document.getElementById("machineMixSpeed").value;
+    const mixTime = parseInt(document.getElementById("machineMixTime").value);
+
+    if (this.weatherServiceController.tempHighAlert) {
+      const activeMachines = this.getMachinesInCurrentHall().filter(
+        (m) => m.isMixing
+      );
+      if (activeMachines.length > 0) {
+        alert(
+          "Temperature is too high! Only one machine can operate at a time."
+        );
+        return;
+      }
     }
-    
-    createMachine() {
-        const mixSpeed = document.getElementById('machineMixSpeed').value;
-        const mixTime = parseInt(document.getElementById('machineMixTime').value);
-        
-        // Check temperature limit
-        if (this.weatherServiceController.tempHighAlert) {
-            // Count active machines in this hall
-            const activeMachines = this.getMachinesInCurrentHall().filter(m => m.isMixing);
-            if (activeMachines.length > 0) {
-                alert('Temperature is too high! Only one machine can operate at a time.');
-                return;
-            }
-        }
-        
-        // Create the machine
-        const machine = new MixingMachine(mixSpeed, mixTime);
-        
-        // Override render to use the current hall
-        const originalRender = machine.render;
-        machine.render = () => {
-            // Get the current hall element
-            const hallElement = document.getElementById(this.currentHallId === 'hall1' ? 'workspace' : 'workspace2');
-            
-            // Call original render with the current hall as workspace
-            this.element = originalRender.call(machine);
-            
-            return this.element;
-        };
-        
-        // Render the machine
-        machine.render();
-        
-        // Register with weather service
-        this.weatherServiceController.registerMachine(machine);
-        
-        // Add to machines collection
-        this.machines.push({
-            machine: machine,
-            hallId: this.currentHallId
-        });
-    }
-    
-    setCurrentHall(hallId) {
-        this.currentHallId = hallId;
-    }
-    
-    getMachinesInCurrentHall() {
-        return this.machines
-            .filter(item => item.hallId === this.currentHallId)
-            .map(item => item.machine);
-    }
+
+    const machine = new MixingMachine(mixSpeed, mixTime);
+
+    machine.render();
+
+    this.weatherServiceController.registerMachine(machine);
+
+    this.machines.push({
+      machine: machine,
+      hallId: this.currentHallId,
+    });
+  }
+
+  setCurrentHall(hallId) {
+    this.currentHallId = hallId;
+  }
+
+  getMachinesInCurrentHall() {
+    return this.machines
+      .filter((item) => item.hallId === this.currentHallId)
+      .map((item) => item.machine);
+  }
 }

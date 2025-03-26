@@ -73,11 +73,13 @@ export default class HallController {
         this.halls[key].element.style.display = "none";
       }
 
+      // Alle ingredienten van alle menghallen verzamelen
       this.halls[key].ingredients = Array.from(
         this.halls[key].element.querySelectorAll(".ingredient")
       );
     });
 
+    // Alle verzamelde ingredienten aan de huidige menghal
     Object.keys(this.halls).forEach((key) => {
       this.halls[key].ingredients.forEach((ingredient) => {
         this.halls[hallId].element.appendChild(ingredient);

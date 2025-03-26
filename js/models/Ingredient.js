@@ -26,7 +26,6 @@ export default class Ingredient {
     const workspaceRect = currentWorkspace.getBoundingClientRect();
     const maxX = workspaceRect.width - 60;
     const maxY = workspaceRect.height - 60;
-
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
