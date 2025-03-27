@@ -20,10 +20,10 @@ export default class Ingredient {
     element.dataset.mixSpeed = this.mixSpeed;
     element.dataset.structure = this.structure;
 
-    const currentWorkspace = document.querySelector(
+    const workspace = document.querySelector(
       ".workspace:not([style*='display: none'])"
     );
-    const workspaceRect = currentWorkspace.getBoundingClientRect();
+    const workspaceRect = workspace.getBoundingClientRect();
     const maxX = workspaceRect.width - 60;
     const maxY = workspaceRect.height - 60;
     const randomX = Math.floor(Math.random() * maxX);
@@ -44,7 +44,7 @@ export default class Ingredient {
     this.makeDraggable(element);
 
     this.element = element;
-    currentWorkspace.appendChild(element);
+    workspace.appendChild(element);
 
     return element;
   }

@@ -16,10 +16,10 @@ export default class MixingMachine {
     element.id = this.id;
     element.className = "mixing-machine";
 
-    const currentWorkspace = document.querySelector(
+    const workspace = document.querySelector(
       ".workspace:not([style*='display: none'])"
     );
-    const workspaceRect = currentWorkspace.getBoundingClientRect();
+    const workspaceRect = workspace.getBoundingClientRect();
     const maxX = workspaceRect.width - 150;
     const maxY = workspaceRect.height - 150;
     const randomX = Math.floor(Math.random() * maxX);
@@ -51,7 +51,7 @@ export default class MixingMachine {
     this.setupDropZone(element);
 
     this.element = element;
-    currentWorkspace.appendChild(element);
+    workspace.appendChild(element);
     return element;
   }
 
