@@ -6,11 +6,14 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-image: linear-gradient(to right, #a013d8, #e65614);
     color: white;
     padding: 1rem;
     text-align: center;
+    margin: 1rem;
+    border-radius: 10px;
 }
+
 
 .container {
     display: flex;
@@ -130,7 +133,6 @@ button:hover {
     z-index: 2;
 }
 
-/* Add visual indicator for when pot is a valid drop target */
 .pot.valid-target {
     box-shadow: 0 0 10px rgba(0,255,0,0.7);
 }
@@ -139,12 +141,11 @@ button:hover {
     box-shadow: 0 0 10px rgba(255,0,0,0.7);
 }
 
-/* Add these styles to your index.css file */
 
 .mixing-machine {
     position: absolute;
-    width: 150px;
-    height: 220px;
+    width: 170px;
+    height: 250px;
     background-color: #555;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -152,12 +153,12 @@ button:hover {
     flex-direction: column;
     overflow: visible;
     z-index: 2;
+
 }
 
 .machine-label {
     width: 100%;
     text-align: center;
-    padding: 5px;
     font-size: 12px;
     font-weight: bold;
     background-color: #333;
@@ -264,6 +265,7 @@ button:hover {
     border-radius: 20px;
     font-size: 14px;
     z-index: 1000;
+    margin: 1rem;
 }
 
 .hall-buttons {

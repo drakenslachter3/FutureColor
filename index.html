@@ -8,29 +8,29 @@
 </head>
 <body>
     <header>
-        <h1>Future Color - Paint Simulator</h1>
+        <h1>Future Color - Verf simulator</h1>
     </header>
     
     <div class="container">
         <div class="ingredients-panel">
-            <h2>Create Ingredient</h2>
+            <h2>Maak Ingredient</h2>
             <form id="ingredientForm">
                 <div class="form-group">
-                    <label for="mixTime">Mix Time (ms):</label>
+                    <label for="mixTime">Mix Tijd (ms):</label>
                     <input type="number" id="mixTime" min="1000" step="500" value="2000">
                 </div>
                 
                 <div class="form-group">
-                    <label for="mixSpeed">Mix Speed:</label>
+                    <label for="mixSpeed">Mix Snelheid:</label>
                     <select id="mixSpeed">
-                        <option value="slow">Slow</option>
-                        <option value="medium">Medium</option>
-                        <option value="fast">Fast</option>
+                        <option value="slow">Langzaam</option>
+                        <option value="medium">Middelmatig</option>
+                        <option value="fast">Snel</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="colorType">Color Type:</label>
+                    <label for="colorType">Kleur type:</label>
                     <select id="colorType">
                         <option value="rgb">RGB</option>
                         <option value="hsl">HSL</option>
@@ -38,15 +38,15 @@
                 </div>
                 
                 <div class="form-group" id="rgbControls">
-                    <label for="red">Red (0-255):</label>
+                    <label for="red">Rood (0-255):</label>
                     <input type="range" id="red" min="0" max="255" value="128">
                     <span id="redValue">128</span>
                     
-                    <label for="green">Green (0-255):</label>
+                    <label for="green">Groen (0-255):</label>
                     <input type="range" id="green" min="0" max="255" value="128">
                     <span id="greenValue">128</span>
                     
-                    <label for="blue">Blue (0-255):</label>
+                    <label for="blue">Blauw (0-255):</label>
                     <input type="range" id="blue" min="0" max="255" value="128">
                     <span id="blueValue">128</span>
                 </div>
@@ -56,31 +56,31 @@
                     <input type="range" id="hue" min="0" max="360" value="180">
                     <span id="hueValue">180</span>
                     
-                    <label for="saturation">Saturation (0-100%):</label>
+                    <label for="saturation">Saturatie (0-100%):</label>
                     <input type="range" id="saturation" min="0" max="100" value="50">
                     <span id="saturationValue">50</span>
                     
-                    <label for="lightness">Lightness (0-100%):</label>
+                    <label for="lightness">Licht niveau (0-100%):</label>
                     <input type="range" id="lightness" min="0" max="100" value="50">
                     <span id="lightnessValue">50</span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="structure">Structure:</label>
+                    <label for="structure">Structuur:</label>
                     <select id="structure">
-                        <option value="grain">Grain</option>
-                        <option value="coarse">Coarse Grain</option>
-                        <option value="smooth">Smooth</option>
-                        <option value="slimy">Slimy</option>
+                        <option value="grain">Korrel</option>
+                        <option value="coarse">Grove Korrel </option>
+                        <option value="smooth">Glad</option>
+                        <option value="slimy">Slijm</option>
                     </select>
                 </div>
                 
-                <button type="submit">Create Ingredient</button>
+                <button type="submit">Maak Ingredient</button>
             </form>
         </div>
         
         <div class="workspace" id="workspace">
-            <!-- Ingredients will be added here dynamically -->
+            <!-- Ingredienten worden hierzo toegevoegd!! -->
         </div>
     </div>
 

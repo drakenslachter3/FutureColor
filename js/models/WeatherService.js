@@ -32,7 +32,7 @@ export default class WeatherService {
 
       return this.currentWeather;
     } catch (error) {
-      console.error("Error fetching weather:", error);
+      console.error("Fout met weer ophahlen:", error);
       return this.currentWeather;
     }
   }
@@ -53,7 +53,7 @@ export default class WeatherService {
       if (!this.tempHighAlert) {
         this.tempHighAlert = true;
         alert(
-          `Warning: Temperature is above 35°C (${this.currentWeather.temperature}°C).\nOnly 1 mixing machine can operate at a time!`
+          `Waarschuwing: Temperatuur is boven de 35°C (${this.currentWeather.temperature}°C).\nEr kan maaar 1 machine tegelijk mixen!`
         );
 
         this.limitActiveMachines();
@@ -73,7 +73,7 @@ export default class WeatherService {
         }
 
         alert(
-          `Temperature too high! Only the first machine will continue mixing.`
+          `Het is warm! Alleen 1 machine kan blijven mixen.`
         );
       }
     }
@@ -99,7 +99,7 @@ export default class WeatherService {
     }
 
     if (this.tempHighAlert) {
-      weatherText += " 🔥 HIGH TEMP ALERT!";
+      weatherText += " 🔥 HEEL WARM!";
     }
 
     weatherDisplay.textContent = weatherText;

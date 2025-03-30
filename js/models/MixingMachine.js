@@ -1,8 +1,9 @@
 import DraggableUtil from "../utils/DraggableUtils.js";
 
 export default class MixingMachine {
-  constructor(mixSpeed, mixTime) {
+  constructor(mixSpeed, mixTime, speedLabel) {
     this.mixSpeed = mixSpeed;
+    this.speedLabel = speedLabel;
     this.mixTime = mixTime;
     this.pot = null;
     this.isMixing = false;
@@ -35,7 +36,7 @@ export default class MixingMachine {
 
     const inputSlot = document.createElement("div");
     inputSlot.className = "machine-input-slot";
-    inputSlot.textContent = "Drop Pot Here";
+    inputSlot.textContent = "In";
     element.appendChild(inputSlot);
 
     const mixingChamber = document.createElement("div");
@@ -44,7 +45,7 @@ export default class MixingMachine {
 
     const outputSlot = document.createElement("div");
     outputSlot.className = "machine-output-slot";
-    outputSlot.textContent = "Output";
+    outputSlot.textContent = "Uit";
     element.appendChild(outputSlot);
 
     this.makeDraggable(element);
@@ -101,24 +102,24 @@ export default class MixingMachine {
 
   tryAddPot(potElement) {
     if (this.isMixing) {
-      alert("This machine is currently mixing!");
+      alert("Deze machine is al aan het mixen!");
       return;
     }
 
     if (this.pot) {
-      alert("This machine already has a pot! Remove it first.");
+      alert("Deze machine heeft al een pot!");
       return;
     }
 
     const potMixSpeed = potElement.dataset.mixSpeed;
 
     if (!potMixSpeed) {
-      alert("This pot is empty!");
+      alert("Deze pot is leeg!");
       return;
     }
 
     if (potMixSpeed !== this.mixSpeed) {
-      alert(`This machine can only mix pots with ${this.mixSpeed} speed!`);
+      alert(`Deze machine kan allen potten mixen met  een snelheid van ${this.speedLabel}`);
       return;
     }
 
@@ -163,7 +164,7 @@ export default class MixingMachine {
     const ingredients = this.getPotIngredients(potElement);
 
     if (ingredients.length === 0) {
-      alert("This pot has no ingredients to mix!");
+      alert("Deze potten heeft geen ingredienten!");
       this.releasePot();
       return;
     }
@@ -207,7 +208,7 @@ export default class MixingMachine {
     const inputSlot = this.element.querySelector(".machine-input-slot");
     const outputSlot = this.element.querySelector(".machine-output-slot");
 
-    inputSlot.textContent = "Drop Pot Here";
+    inputSlot.textContent = "Pot hier";
 
     // Plaats pot in de uitvoer
     const potElement = this.pot.element;
@@ -239,17 +240,13 @@ export default class MixingMachine {
     }
 
     const inputSlot = this.element.querySelector(".machine-input-slot");
-    inputSlot.textContent = "Drop Pot Here";
+    inputSlot.textContent = "Pot hier";
 
     this.pot = null;
     this.isMixing = false;
   }
 
   getPotIngredients(potElement) {
-    // This is a helper method to get all ingredients in a pot
-    // In a real application, you'd probably have a reference to the Pot object
-    // For now, we'll parse the DOM to gather this information
-
     const ingredients = [];
 
     const ingredientElements =
@@ -322,6 +319,6 @@ export default class MixingMachine {
       weatherInfo = ` (Weather: ${(this.weatherMultiplier * 100).toFixed(0)}%)`;
     }
 
-    machineLabel.textContent = `Mixer (${this.mixSpeed} - ${this.mixTime}ms)${weatherInfo}`;
+    machineLabel.textContent = `Meng machine (${this.speedLabel} - ${this.mixTime}ms)${weatherInfo}`;
   }
 }

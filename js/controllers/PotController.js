@@ -13,7 +13,7 @@ export default class PotController {
   setupCreatePotButton() {
     const createPotButton = document.createElement("button");
     createPotButton.id = "createPotButton";
-    createPotButton.textContent = "Create New Pot";
+    createPotButton.textContent = "Maak Nieuwe Pot";
     createPotButton.style.marginTop = "1rem";
 
     this.ingredientsPanel.appendChild(createPotButton);

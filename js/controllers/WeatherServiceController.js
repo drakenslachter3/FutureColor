@@ -23,12 +23,12 @@ export default class WeatherServiceController {
     const weatherSection = document.createElement("div");
     weatherSection.className = "weather-section";
     weatherSection.innerHTML = `
-            <h2>Weather Control</h2>
+            <h2>Weer Instellignen</h2>
             <div class="form-group">
-                <label for="weatherLocation">Location:</label>
+                <label for="weatherLocation">Locatie:</label>
                 <input type="text" id="weatherLocation" value="${this.defaultLocation}">
             </div>
-            <button id="updateWeatherButton">Update Weather</button>
+            <button id="updateWeatherButton">Update Weer</button>
         `;
 
     this.ingredientsPanel.appendChild(document.createElement("hr"));

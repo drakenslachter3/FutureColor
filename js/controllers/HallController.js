@@ -40,10 +40,10 @@ export default class HallController {
     const hallSection = document.createElement("div");
     hallSection.className = "hall-section";
     hallSection.innerHTML = `
-            <h2>Mixing Halls</h2>
+            <h2>Hallen</h2>
             <div class="hall-buttons">
-                <button id="hall1Button" class="hall-button active">Hall 1</button>
-                <button id="hall2Button" class="hall-button">Hall 2</button>
+                <button id="hall1Button" class="hall-button active">Hal 1</button>
+                <button id="hall2Button" class="hall-button">Hal 2</button>
             </div>
         `;
 

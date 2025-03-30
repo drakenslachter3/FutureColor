@@ -17,20 +17,20 @@ export default class MixingMachineController {
     const machineSection = document.createElement("div");
     machineSection.className = "machine-section";
     machineSection.innerHTML = `
-            <h2>Create Mixing Machine</h2>
+            <h2>Maak Meng Machine</h2>
             <div class="form-group">
-                <label for="machineMixSpeed">Mix Speed:</label>
+                <label for="machineMixSpeed">Mix Snelheid:</label>
                 <select id="machineMixSpeed">
-                    <option value="slow">Slow</option>
-                    <option value="medium">Medium</option>
-                    <option value="fast">Fast</option>
+                    <option value="slow">Langzaam</option>
+                    <option value="medium">Middelmatig</option>
+                    <option value="fast">Snel</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="machineMixTime">Mix Time (ms):</label>
+                <label for="machineMixTime">Mix Snelheid (ms):</label>
                 <input type="number" id="machineMixTime" min="1000" step="500" value="3000">
             </div>
-            <button id="createMachineButton">Create Mixing Machine</button>
+            <button id="createMachineButton">Maak Machine</button>
         `;
 
     this.ingredientsPanel.appendChild(document.createElement("hr"));
@@ -53,13 +53,28 @@ export default class MixingMachineController {
       );
       if (activeMachines.length > 0) {
         alert(
-          "Temperature is too high! Only one machine can operate at a time."
+          "Temperatuur is te hoog, kan alleen maar 1 machine gebruiken."
         );
         return;
       }
     }
 
-    const machine = new MixingMachine(mixSpeed, mixTime);
+    let speedLabel = "";
+    switch(mixSpeed){
+      case "slow":
+        speedLabel = "Langzaam";
+        break;
+      case "medium":
+        speedLabel = "Middelmatig";
+        break;
+      case "fast":
+        speedLabel = "Snel";
+        break;
+      default:
+        speedLabel = "Onbekende snelheid";
+        break;
+    }
+    const machine = new MixingMachine(mixSpeed, mixTime, speedLabel);
 
     machine.render();
 

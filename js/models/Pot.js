@@ -28,7 +28,7 @@ export default class Pot {
         
         const potLabel = document.createElement('div');
         potLabel.className = 'pot-label';
-        potLabel.textContent = 'Empty Pot';
+        potLabel.textContent = 'Lege Pot';
         element.appendChild(potLabel);
         
         this.makeDraggable(element);
@@ -86,7 +86,7 @@ export default class Pot {
             this.updatePotLabel();
         } 
         else if (mixSpeed !== this.mixSpeed) {
-            alert('Only ingredients with the same mix speed can be added to a pot!');
+            alert('Alleen ingredienten met dezelfde snelheid mogen in een pot!');
             return;
         }
         
@@ -143,9 +143,9 @@ export default class Pot {
     updatePotLabel() {
         const label = this.element.querySelector('.pot-label');
         if (this.ingredients.length === 0) {
-            label.textContent = 'Empty Pot';
+            label.textContent = 'Lege Pot';
         } else {
-            label.textContent = `Pot (${this.mixSpeed} - ${this.ingredients.length} ingredients)`;
+            label.textContent = `Gekleurde Pot`;
         }
     }
     
