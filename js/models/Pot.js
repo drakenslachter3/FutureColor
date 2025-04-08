@@ -30,6 +30,20 @@ export default class Pot {
         potLabel.className = 'pot-label';
         potLabel.textContent = 'Lege Pot';
         element.appendChild(potLabel);
+
+        // Potinformatie opslaan voor kleurentest
+        const colorHandle = document.createElement('div');
+        colorHandle.innerHTML = '⊕';
+        colorHandle.title = 'Drag to add this color to the color test panel';
+        colorHandle.setAttribute('draggable', 'true');
+        colorHandle.addEventListener('dragstart', (e) => {
+            const potData = {
+                id: this.id,
+                color: this.element.style.backgroundColor || 'rgba(0, 0, 0, 0.7)'
+            };
+            e.dataTransfer.setData("application/pot", JSON.stringify(potData));
+        });
+        element.appendChild(colorHandle);
         
         this.makeDraggable(element);
         this.setupDropZone(element);
@@ -52,7 +66,6 @@ export default class Pot {
     setupDropZone(element) {
         let draggedIngredient = null;
         
-        // Event listeners to handle dragging ingredients over a pot
         document.addEventListener('mousedown', (e) => {
             if (e.target.classList.contains('ingredient')) {
                 draggedIngredient = e.target;
@@ -62,7 +75,7 @@ export default class Pot {
         document.addEventListener('mouseup', (e) => {
             if (!draggedIngredient) return;
             
-            // Check if dropping on this pot
+            // Kijken of het ingredient binnen de grenzen van de pot zit
             const potRect = element.getBoundingClientRect();
             if (
                 e.clientX >= potRect.left &&
@@ -90,7 +103,7 @@ export default class Pot {
             return;
         }
         
-        // Add ingredient to the pot
+        // Ingredient in de pot stoppen
         const ingredientData = {
             id: ingredientElement.id,
             mixTime: parseInt(ingredientElement.dataset.mixTime),
@@ -112,7 +125,6 @@ export default class Pot {
         const existingIngredients = this.element.querySelectorAll('.ingredient-in-pot');
         existingIngredients.forEach(el => el.remove());
         
-        // Create a container for ingredients if it doesn't exist
         let ingredientsContainer = this.element.querySelector('.pot-ingredients');
         if (!ingredientsContainer) {
             ingredientsContainer = document.createElement('div');
@@ -122,7 +134,6 @@ export default class Pot {
             ingredientsContainer.innerHTML = '';
         }
         
-        // Add each ingredient as a small visual element
         this.ingredients.forEach((ingredient, index) => {
             const ingredientEl = document.createElement('div');
             ingredientEl.className = 'ingredient-in-pot';
@@ -154,7 +165,6 @@ export default class Pot {
             return;
         }
         
-        // Simple color mixing - average RGB values
         let red = 0, green = 0, blue = 0;
         
         this.ingredients.forEach(ingredient => {
@@ -172,12 +182,10 @@ export default class Pot {
             }
         });
         
-        // Average the colors
         red = Math.round(red / this.ingredients.length);
         green = Math.round(green / this.ingredients.length);
         blue = Math.round(blue / this.ingredients.length);
         
-        // Apply to pot, but with transparency to show it's a liquid
         this.element.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, 0.7)`;
     }
     
@@ -206,7 +214,6 @@ export default class Pot {
             }
         }
         
-        // Fallback: parse from text content
         const text = element.textContent.trim();
         if (text.startsWith('R:')) {
             const rgbValues = text.match(/R:(\d+) G:(\d+) B:(\d+)/);

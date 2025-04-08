@@ -17,9 +17,9 @@ export default class MixingMachineController {
     const machineSection = document.createElement("div");
     machineSection.className = "machine-section";
     machineSection.innerHTML = `
-            <h2>Maak Meng Machine</h2>
+            <h2>Mengmachine</h2>
             <div class="form-group">
-                <label for="machineMixSpeed">Mix Snelheid:</label>
+                <label for="machineMixSpeed">Mixsnelheid:</label>
                 <select id="machineMixSpeed">
                     <option value="slow">Langzaam</option>
                     <option value="medium">Middelmatig</option>
@@ -27,7 +27,7 @@ export default class MixingMachineController {
                 </select>
             </div>
             <div class="form-group">
-                <label for="machineMixTime">Mix Snelheid (ms):</label>
+                <label for="machineMixTime">Mixsnelheid (ms):</label>
                 <input type="number" id="machineMixTime" min="1000" step="500" value="3000">
             </div>
             <button id="createMachineButton">Maak Machine</button>

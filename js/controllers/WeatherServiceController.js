@@ -23,7 +23,7 @@ export default class WeatherServiceController {
     const weatherSection = document.createElement("div");
     weatherSection.className = "weather-section";
     weatherSection.innerHTML = `
-            <h2>Weer Instellignen</h2>
+            <h2>Weerinstellingen</h2>
             <div class="form-group">
                 <label for="weatherLocation">Locatie:</label>
                 <input type="text" id="weatherLocation" value="${this.defaultLocation}">

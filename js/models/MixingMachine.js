@@ -119,7 +119,7 @@ export default class MixingMachine {
     }
 
     if (potMixSpeed !== this.mixSpeed) {
-      alert(`Deze machine kan allen potten mixen met  een snelheid van ${this.speedLabel}`);
+      alert(`Deze machine kan allen potten mixen met een snelheid van ${this.speedLabel}`);
       return;
     }
 
@@ -208,7 +208,7 @@ export default class MixingMachine {
     const inputSlot = this.element.querySelector(".machine-input-slot");
     const outputSlot = this.element.querySelector(".machine-output-slot");
 
-    inputSlot.textContent = "Pot hier";
+    inputSlot.textContent = "In";
 
     // Plaats pot in de uitvoer
     const potElement = this.pot.element;
@@ -240,7 +240,7 @@ export default class MixingMachine {
     }
 
     const inputSlot = this.element.querySelector(".machine-input-slot");
-    inputSlot.textContent = "Pot hier";
+    inputSlot.textContent = "In";
 
     this.pot = null;
     this.isMixing = false;
@@ -316,9 +316,9 @@ export default class MixingMachine {
     let weatherInfo = "";
 
     if (this.weatherMultiplier !== 1) {
-      weatherInfo = ` (Weather: ${(this.weatherMultiplier * 100).toFixed(0)}%)`;
+      weatherInfo = ` (Weer: ${(this.weatherMultiplier * 100).toFixed(0)}%)`;
     }
 
-    machineLabel.textContent = `Meng machine (${this.speedLabel} - ${this.mixTime}ms)${weatherInfo}`;
+    machineLabel.textContent = `Mengmachine (${this.speedLabel} - ${this.mixTime}ms)${weatherInfo}`;
   }
 }

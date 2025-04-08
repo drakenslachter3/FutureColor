@@ -13,15 +13,15 @@
     
     <div class="container">
         <div class="ingredients-panel">
-            <h2>Maak Ingredient</h2>
+            <h2>Ingredient</h2>
             <form id="ingredientForm">
                 <div class="form-group">
-                    <label for="mixTime">Mix Tijd (ms):</label>
+                    <label for="mixTime">Mixtijd (ms):</label>
                     <input type="number" id="mixTime" min="1000" step="500" value="2000">
                 </div>
                 
                 <div class="form-group">
-                    <label for="mixSpeed">Mix Snelheid:</label>
+                    <label for="mixSpeed">Mixsnelheid:</label>
                     <select id="mixSpeed">
                         <option value="slow">Langzaam</option>
                         <option value="medium">Middelmatig</option>
@@ -30,7 +30,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="colorType">Kleur type:</label>
+                    <label for="colorType">Kleurtype:</label>
                     <select id="colorType">
                         <option value="rgb">RGB</option>
                         <option value="hsl">HSL</option>
@@ -82,6 +82,45 @@
         <div class="workspace" id="workspace">
             <!-- Ingredienten worden hierzo toegevoegd!! -->
         </div>
+
+        <div class="color-test-panel" id="colorTestPanel">
+            <h2>Kleurentest</h2>
+            
+            <div class="grid-controls">
+                <div class="form-group">
+                    <label for="gridRows">Rijen:</label>
+                    <input type="number" id="gridRows" min="1" max="10" value="6">
+                </div>
+                <div class="form-group">
+                    <label for="gridColumns">Kolommen:</label>
+                    <input type="number" id="gridColumns" min="1" max="10" value="6">
+                </div>
+                <button id="generateGrid">Genereer Grid</button>
+            </div>
+            
+            <div class="color-grid" id="colorGrid"></div>
+        </div>
+    </div>
+
+    <div id="colorPopup" class="color-popup">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h3>Triadische Kleurenschema</h3>
+            <div class="triadic-colors">
+                <div class="color-box original-color">
+                    <div class="color-sample" id="originalColorSample"></div>
+                    <div class="color-info" id="originalColorInfo"></div>
+                </div>
+                <div class="color-box triadic-color-1">
+                    <div class="color-sample" id="triadicColor1Sample"></div>
+                    <div class="color-info" id="triadicColor1Info"></div>
+                </div>
+                <div class="color-box triadic-color-2">
+                    <div class="color-sample" id="triadicColor2Sample"></div>
+                    <div class="color-info" id="triadicColor2Info"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="module" src="/js/models/Ingredient.js"></script>
@@ -93,6 +132,8 @@
     <script type="module" src="/js/controllers/MixingMachineController.js"></script>
     <script type="module" src="/js/controllers/HallController.js"></script>
     <script type="module" src="/js/controllers/WeatherServiceController.js"></script>
+    <script type="module" src="/js/controllers/PotController.js"></script>
+    <script type="module" src="/js/controllers/ColorTestController.js"></script>
 
     <script type="module" src="/js/index.js"></script>
 </body>
