@@ -1,126 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Future Color - Paint Simulator</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
     <header>
-        <h1>Future Color - Verf simulator</h1>
+      <h1>Future Color - Verf simulator</h1>
     </header>
-    
+
     <div class="container">
-        <div class="ingredients-panel">
-            <h2>Ingredient</h2>
-            <form id="ingredientForm">
-                <div class="form-group">
-                    <label for="mixTime">Mixtijd (ms):</label>
-                    <input type="number" id="mixTime" min="1000" step="500" value="2000">
-                </div>
-                
-                <div class="form-group">
-                    <label for="mixSpeed">Mixsnelheid:</label>
-                    <select id="mixSpeed">
-                        <option value="slow">Langzaam</option>
-                        <option value="medium">Middelmatig</option>
-                        <option value="fast">Snel</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="colorType">Kleurtype:</label>
-                    <select id="colorType">
-                        <option value="rgb">RGB</option>
-                        <option value="hsl">HSL</option>
-                    </select>
-                </div>
-                
-                <div class="form-group" id="rgbControls">
-                    <label for="red">Rood (0-255):</label>
-                    <input type="range" id="red" min="0" max="255" value="128">
-                    <span id="redValue">128</span>
-                    
-                    <label for="green">Groen (0-255):</label>
-                    <input type="range" id="green" min="0" max="255" value="128">
-                    <span id="greenValue">128</span>
-                    
-                    <label for="blue">Blauw (0-255):</label>
-                    <input type="range" id="blue" min="0" max="255" value="128">
-                    <span id="blueValue">128</span>
-                </div>
-                
-                <div class="form-group" id="hslControls" style="display: none;">
-                    <label for="hue">Hue (0-360):</label>
-                    <input type="range" id="hue" min="0" max="360" value="180">
-                    <span id="hueValue">180</span>
-                    
-                    <label for="saturation">Saturatie (0-100%):</label>
-                    <input type="range" id="saturation" min="0" max="100" value="50">
-                    <span id="saturationValue">50</span>
-                    
-                    <label for="lightness">Licht niveau (0-100%):</label>
-                    <input type="range" id="lightness" min="0" max="100" value="50">
-                    <span id="lightnessValue">50</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="structure">Structuur:</label>
-                    <select id="structure">
-                        <option value="grain">Korrel</option>
-                        <option value="coarse">Grove Korrel </option>
-                        <option value="smooth">Glad</option>
-                        <option value="slimy">Slijm</option>
-                    </select>
-                </div>
-                
-                <button type="submit">Maak Ingredient</button>
-            </form>
-        </div>
-        
-        <div class="workspace" id="workspace">
-            <!-- Ingredienten worden hierzo toegevoegd!! -->
+      <div class="ingredients-panel">
+        <h2>Ingredient</h2>
+        <form id="ingredientForm">
+          <div class="form-group">
+            <label for="mixTime">Mixtijd (ms):</label>
+            <input
+              type="number"
+              id="mixTime"
+              min="1000"
+              step="500"
+              value="2000"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="mixSpeed">Mixsnelheid:</label>
+            <select id="mixSpeed">
+              <option value="slow">Langzaam</option>
+              <option value="medium">Middelmatig</option>
+              <option value="fast">Snel</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="colorType">Kleurtype:</label>
+            <select id="colorType">
+              <option value="rgb">RGB</option>
+              <option value="hsl">HSL</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="rgbControls">
+            <label for="red">Rood (0-255):</label>
+            <input type="range" id="red" min="0" max="255" value="128" />
+            <span id="redValue">128</span>
+
+            <label for="green">Groen (0-255):</label>
+            <input type="range" id="green" min="0" max="255" value="128" />
+            <span id="greenValue">128</span>
+
+            <label for="blue">Blauw (0-255):</label>
+            <input type="range" id="blue" min="0" max="255" value="128" />
+            <span id="blueValue">128</span>
+          </div>
+
+          <div class="form-group" id="hslControls" style="display: none">
+            <label for="hue">Hue (0-360):</label>
+            <input type="range" id="hue" min="0" max="360" value="180" />
+            <span id="hueValue">180</span>
+
+            <label for="saturation">Saturatie (0-100%):</label>
+            <input type="range" id="saturation" min="0" max="100" value="50" />
+            <span id="saturationValue">50</span>
+
+            <label for="lightness">Licht niveau (0-100%):</label>
+            <input type="range" id="lightness" min="0" max="100" value="50" />
+            <span id="lightnessValue">50</span>
+          </div>
+
+          <div class="form-group">
+            <label for="structure">Structuur:</label>
+            <select id="structure">
+              <option value="grain">Korrel</option>
+              <option value="coarse">Grove Korrel</option>
+              <option value="smooth">Glad</option>
+              <option value="slimy">Slijm</option>
+            </select>
+          </div>
+
+          <button type="submit">Maak Ingredient</button>
+        </form>
+      </div>
+
+      <div class="workspace" id="workspace">
+        <!-- Ingredienten worden hierzo toegevoegd!! -->
+      </div>
+
+      <div class="color-test-panel" id="colorTestPanel">
+        <h2>Kleurentest</h2>
+
+        <div class="grid-controls">
+          <div class="form-group">
+            <label for="gridRows">Rijen:</label>
+            <input type="number" id="gridRows" min="1" max="10" value="6" />
+          </div>
+          <div class="form-group">
+            <label for="gridColumns">Kolommen:</label>
+            <input type="number" id="gridColumns" min="1" max="10" value="6" />
+          </div>
+          <button id="generateGrid">Genereer Grid</button>
         </div>
 
-        <div class="color-test-panel" id="colorTestPanel">
-            <h2>Kleurentest</h2>
-            
-            <div class="grid-controls">
-                <div class="form-group">
-                    <label for="gridRows">Rijen:</label>
-                    <input type="number" id="gridRows" min="1" max="10" value="6">
-                </div>
-                <div class="form-group">
-                    <label for="gridColumns">Kolommen:</label>
-                    <input type="number" id="gridColumns" min="1" max="10" value="6">
-                </div>
-                <button id="generateGrid">Genereer Grid</button>
-            </div>
-            
-            <div class="color-grid" id="colorGrid"></div>
-        </div>
+        <div class="color-grid" id="colorGrid"></div>
+      </div>
     </div>
 
     <div id="colorPopup" class="color-popup">
-        <div class="popup-content">
-            <span class="close-popup">&times;</span>
-            <h3>Triadische Kleurenschema</h3>
-            <div class="triadic-colors">
-                <div class="color-box original-color">
-                    <div class="color-sample" id="originalColorSample"></div>
-                    <div class="color-info" id="originalColorInfo"></div>
-                </div>
-                <div class="color-box triadic-color-1">
-                    <div class="color-sample" id="triadicColor1Sample"></div>
-                    <div class="color-info" id="triadicColor1Info"></div>
-                </div>
-                <div class="color-box triadic-color-2">
-                    <div class="color-sample" id="triadicColor2Sample"></div>
-                    <div class="color-info" id="triadicColor2Info"></div>
-                </div>
-            </div>
+      <div class="popup-content">
+        <span class="close-popup">&times;</span>
+        <h3>Triadische Kleurenschema</h3>
+        <div class="triadic-colors">
+          <div class="color-box original-color">
+            <div class="color-sample" id="originalColorSample"></div>
+            <div class="color-info" id="originalColorInfo"></div>
+          </div>
+          <div class="color-box triadic-color-1">
+            <div class="color-sample" id="triadicColor1Sample"></div>
+            <div class="color-info" id="triadicColor1Info"></div>
+          </div>
+          <div class="color-box triadic-color-2">
+            <div class="color-sample" id="triadicColor2Sample"></div>
+            <div class="color-info" id="triadicColor2Info"></div>
+          </div>
         </div>
+      </div>
     </div>
 
     <script type="module" src="/js/models/Ingredient.js"></script>
@@ -128,13 +134,22 @@
     <script type="module" src="/js/models/MixingMachine.js"></script>
     <script type="module" src="/js/models/WeatherService.js"></script>
 
-    <script type="module" src="/js/controllers/IngredientController.js"></script>
-    <script type="module" src="/js/controllers/MixingMachineController.js"></script>
+    <script
+      type="module"
+      src="/js/controllers/IngredientController.js"
+    ></script>
+    <script
+      type="module"
+      src="/js/controllers/MixingMachineController.js"
+    ></script>
     <script type="module" src="/js/controllers/HallController.js"></script>
-    <script type="module" src="/js/controllers/WeatherServiceController.js"></script>
+    <script
+      type="module"
+      src="/js/controllers/WeatherServiceController.js"
+    ></script>
     <script type="module" src="/js/controllers/PotController.js"></script>
     <script type="module" src="/js/controllers/ColorTestController.js"></script>
 
     <script type="module" src="/js/index.js"></script>
-</body>
+  </body>
 </html>
