@@ -9,7 +9,7 @@ export default class Pot {
     this.id = "pot_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
   }
 
-  render() {
+  render() { //Pot display
     const element = document.createElement("div");
     element.id = this.id;
     element.className = "pot";
@@ -89,7 +89,7 @@ export default class Pot {
     });
   }
 
-  tryAddIngredient(ingredientElement) {
+  tryAddIngredient(ingredientElement) { //Voegt een ingredient toe als dat masgx
     const mixSpeed = ingredientElement.dataset.mixSpeed;
 
     if (this.ingredients.length === 0) {
@@ -118,7 +118,7 @@ export default class Pot {
     this.updatePotColor();
   }
 
-  renderIngredientsInPot() {
+  renderIngredientsInPot() { //Laat de ingredienten er omheen zien in bolletjes
     const existingIngredients =
       this.element.querySelectorAll(".ingredient-in-pot");
     existingIngredients.forEach((el) => el.remove());
@@ -190,7 +190,7 @@ export default class Pot {
     this.element.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, 0.7)`;
   }
 
-  extractColor(element) {
+  extractColor(element) { //Returned de kleur dmv regex in rgb
     const bgColor = element.style.backgroundColor;
 
     if (bgColor.startsWith("rgb")) {

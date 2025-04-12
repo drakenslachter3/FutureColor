@@ -1,4 +1,5 @@
 export default class WeatherService {
+  //Weathermap API
   constructor() {
     this.apiKey = "63c07556814ae15df2321d662533ae0a";
     this.apiUrl = "https://api.openweathermap.org/data/2.5/weather";
@@ -8,6 +9,7 @@ export default class WeatherService {
   }
 
   async fetchWeather(location) {
+    //Fetched het weer 
     try {
       const url = `${this.apiUrl}?q=${location}&units=metric&APPID=${this.apiKey}`;
       const response = await fetch(url);
@@ -26,6 +28,7 @@ export default class WeatherService {
         location: `${data.name}, ${data.sys.country}`,
       };
 
+      //Updated de rest van de app
       this.updateMachines();
       this.checkTemperatureAlert();
       this.updateWeatherDisplay();
@@ -78,8 +81,9 @@ export default class WeatherService {
       }
     }
   }
-
+  
   updateWeatherDisplay() {
+    //Update het weer display rechtsboven
     let weatherDisplay = document.getElementById("weatherDisplay");
 
     if (!weatherDisplay) {

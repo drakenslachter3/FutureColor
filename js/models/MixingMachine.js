@@ -13,7 +13,7 @@ export default class MixingMachine {
     this.weatherMultiplier = 1;
   }
 
-  render() {
+  render() { //Laat mixingmachine zien
     const element = document.createElement("div");
     element.id = this.id;
     element.className = "mixing-machine";
@@ -121,7 +121,7 @@ export default class MixingMachine {
     });
   }
 
-  tryAddPot(potElement, slotNumber) {
+  tryAddPot(potElement, slotNumber) { //Probeert een pot toe te voegen op 1 of 2 
     if (this.isMixing) {
       alert("Deze machine is al aan het mixen!");
       return;
@@ -193,7 +193,7 @@ export default class MixingMachine {
     }
   }
 
-  startMixing() {
+  startMixing() { //begint mixing animatie
     if (!this.pot1 || !this.pot2) {
       return;
     }
