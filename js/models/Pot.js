@@ -31,7 +31,6 @@ export default class Pot {
     potLabel.textContent = "Lege Pot";
     element.appendChild(potLabel);
 
-    // Potinformatie opslaan voor kleurentest
     const colorHandle = document.createElement("div");
     colorHandle.innerHTML = "⊕";
     colorHandle.title =
@@ -76,7 +75,6 @@ export default class Pot {
     document.addEventListener("mouseup", (e) => {
       if (!draggedIngredient) return;
 
-      // Kijken of het ingredient binnen de grenzen van de pot zit
       const potRect = element.getBoundingClientRect();
       if (
         e.clientX >= potRect.left &&
@@ -103,7 +101,6 @@ export default class Pot {
       return;
     }
 
-    // Ingredient in de pot stoppen
     const ingredientData = {
       id: ingredientElement.id,
       mixTime: parseInt(ingredientElement.dataset.mixTime),

@@ -86,7 +86,6 @@ export default class MixingMachine {
       ".machine-input-slot[data-slot-number='2']"
     );
 
-    // Kijken of de potten in de mengmachine worden geplaatst
     document.addEventListener("mousedown", (e) => {
       if (e.target.classList.contains("pot") || e.target.closest(".pot")) {
         draggedPot = e.target.closest(".pot");
@@ -166,7 +165,6 @@ export default class MixingMachine {
       this.pot2 = potInfo;
     }
 
-    // Pot in mixmachine visualiseren
     const inputSlot = this.element.querySelector(
       `.machine-input-slot[data-slot-number='${slotNumber}']`
     );
@@ -264,7 +262,6 @@ export default class MixingMachine {
     inputSlot1.textContent = "Pot 1";
     inputSlot2.textContent = "Pot 2";
 
-    // Eerste pot in de uitvoer stoppen en tweede pot verstoppen
     const outputPotElement = this.pot1.element;
     const hiddenPotElement = this.pot2.element;
     hiddenPotElement.style.display = "none";
@@ -360,7 +357,6 @@ export default class MixingMachine {
     return ingredients;
   }
 
-  // Kleurenreeks parsen
   extractColor(colorString) {
     if (colorString.startsWith("rgb")) {
       const match = colorString.match(

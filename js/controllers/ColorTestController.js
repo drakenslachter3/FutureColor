@@ -17,7 +17,6 @@ export default class ColorTestController {
       this.colorPopup.style.display = "none";
     });
 
-    // Kleurentestpaneel drag events toelaten
     this.colorTestPanel.addEventListener("dragover", (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -104,7 +103,6 @@ export default class ColorTestController {
     const rgbValues = parseRgbColor(baseColor);
     const hsl = rgbToHsl(rgbValues.r, rgbValues.g, rgbValues.b);
 
-    // Triadische kleuren berekenen (120 en 240 graden van baseColor)
     const triadic1Hsl = { ...hsl, h: (hsl.h + 120) % 360 };
     const triadic2Hsl = { ...hsl, h: (hsl.h + 240) % 360 };
 
