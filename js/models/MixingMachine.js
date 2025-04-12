@@ -5,7 +5,8 @@ export default class MixingMachine {
     this.mixSpeed = mixSpeed;
     this.speedLabel = speedLabel;
     this.mixTime = mixTime;
-    this.pot = null;
+    this.pot1 = null;
+    this.pot2 = null;
     this.isMixing = false;
     this.element = null;
     this.id = "machine_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
@@ -34,10 +35,17 @@ export default class MixingMachine {
     machineLabel.textContent = `Mixer (${this.mixSpeed} - ${this.mixTime}ms)`;
     element.appendChild(machineLabel);
 
-    const inputSlot = document.createElement("div");
-    inputSlot.className = "machine-input-slot";
-    inputSlot.textContent = "In";
-    element.appendChild(inputSlot);
+    const inputSlot1 = document.createElement("div");
+    inputSlot1.className = "machine-input-slot";
+    inputSlot1.dataset.slotNumber = "1";
+    inputSlot1.textContent = "Pot 1";
+    element.appendChild(inputSlot1);
+
+    const inputSlot2 = document.createElement("div");
+    inputSlot2.className = "machine-input-slot";
+    inputSlot2.dataset.slotNumber = "2";
+    inputSlot2.textContent = "Pot 2";
+    element.appendChild(inputSlot2);
 
     const mixingChamber = document.createElement("div");
     mixingChamber.className = "machine-mixing-chamber";
@@ -71,9 +79,14 @@ export default class MixingMachine {
   setupDropZone(element) {
     let draggedPot = null;
 
-    const inputSlot = element.querySelector(".machine-input-slot");
+    const inputSlot1 = element.querySelector(
+      ".machine-input-slot[data-slot-number='1']"
+    );
+    const inputSlot2 = element.querySelector(
+      ".machine-input-slot[data-slot-number='2']"
+    );
 
-    // Event listeners to handle dragging pots over a machine
+    // Kijken of de potten in de mengmachine worden geplaatst
     document.addEventListener("mousedown", (e) => {
       if (e.target.classList.contains("pot") || e.target.closest(".pot")) {
         draggedPot = e.target.closest(".pot");
@@ -85,29 +98,46 @@ export default class MixingMachine {
         return;
       }
 
-      // Controleren of de pot in de invoer van de machine wordt geplaatst
-      const inputRect = inputSlot.getBoundingClientRect();
+      const inputRect1 = inputSlot1.getBoundingClientRect();
       if (
-        e.clientX >= inputRect.left &&
-        e.clientX <= inputRect.right &&
-        e.clientY >= inputRect.top &&
-        e.clientY <= inputRect.bottom
+        e.clientX >= inputRect1.left &&
+        e.clientX <= inputRect1.right &&
+        e.clientY >= inputRect1.top &&
+        e.clientY <= inputRect1.bottom
       ) {
-        this.tryAddPot(draggedPot);
+        this.tryAddPot(draggedPot, 1);
+      }
+
+      const inputRect2 = inputSlot2.getBoundingClientRect();
+      if (
+        e.clientX >= inputRect2.left &&
+        e.clientX <= inputRect2.right &&
+        e.clientY >= inputRect2.top &&
+        e.clientY <= inputRect2.bottom
+      ) {
+        this.tryAddPot(draggedPot, 2);
       }
 
       draggedPot = null;
     });
   }
 
-  tryAddPot(potElement) {
+  tryAddPot(potElement, slotNumber) {
     if (this.isMixing) {
       alert("Deze machine is al aan het mixen!");
       return;
     }
 
-    if (this.pot) {
-      alert("Deze machine heeft al een pot!");
+    if (
+      (this.pot1 && this.pot1.id === potElement.id) ||
+      (this.pot2 && this.pot2.id === potElement.id)
+    ) {
+      alert("Deze pot is al in gebruik in deze machine!");
+      return;
+    }
+
+    if ((slotNumber === 1 && this.pot1) || (slotNumber === 2 && this.pot2)) {
+      alert(`Slot ${slotNumber} heeft al een pot!`);
       return;
     }
 
@@ -119,17 +149,27 @@ export default class MixingMachine {
     }
 
     if (potMixSpeed !== this.mixSpeed) {
-      alert(`Deze machine kan allen potten mixen met een snelheid van ${this.speedLabel}`);
+      alert(
+        `Deze machine kan allen potten mixen met een snelheid van ${this.speedLabel}`
+      );
       return;
     }
 
-    this.pot = {
+    const potInfo = {
       element: potElement,
       id: potElement.id,
     };
 
+    if (slotNumber === 1) {
+      this.pot1 = potInfo;
+    } else {
+      this.pot2 = potInfo;
+    }
+
     // Pot in mixmachine visualiseren
-    const inputSlot = this.element.querySelector(".machine-input-slot");
+    const inputSlot = this.element.querySelector(
+      `.machine-input-slot[data-slot-number='${slotNumber}']`
+    );
     const inputRect = inputSlot.getBoundingClientRect();
     const workspaceRect = document
       .getElementById("workspace")
@@ -150,27 +190,34 @@ export default class MixingMachine {
 
     inputSlot.textContent = "";
 
-    this.startMixing();
+    if (this.pot1 && this.pot2) {
+      this.startMixing();
+    }
   }
 
   startMixing() {
-    if (!this.pot) {
+    if (!this.pot1 || !this.pot2) {
       return;
     }
 
     this.isMixing = true;
 
-    const potElement = this.pot.element;
-    const ingredients = this.getPotIngredients(potElement);
+    const pot1Element = this.pot1.element;
+    const pot2Element = this.pot2.element;
 
-    if (ingredients.length === 0) {
-      alert("Deze potten heeft geen ingredienten!");
-      this.releasePot();
+    const ingredients1 = this.getPotIngredients(pot1Element);
+    const ingredients2 = this.getPotIngredients(pot2Element);
+
+    if (ingredients1.length === 0 || ingredients2.length === 0) {
+      alert("Een van de potten heeft geen ingredienten!");
+      this.releasePots();
       return;
     }
 
+    const allIngredients = [...ingredients1, ...ingredients2];
+
     let maxMixTime = 0;
-    ingredients.forEach((ingredient) => {
+    allIngredients.forEach((ingredient) => {
       maxMixTime = Math.max(maxMixTime, ingredient.mixTime);
     });
 
@@ -205,13 +252,23 @@ export default class MixingMachine {
 
     const mixingChamber = this.element.querySelector(".machine-mixing-chamber");
     mixingChamber.innerHTML = "";
-    const inputSlot = this.element.querySelector(".machine-input-slot");
+
+    const inputSlot1 = this.element.querySelector(
+      ".machine-input-slot[data-slot-number='1']"
+    );
+    const inputSlot2 = this.element.querySelector(
+      ".machine-input-slot[data-slot-number='2']"
+    );
     const outputSlot = this.element.querySelector(".machine-output-slot");
 
-    inputSlot.textContent = "In";
+    inputSlot1.textContent = "Pot 1";
+    inputSlot2.textContent = "Pot 2";
 
-    // Plaats pot in de uitvoer
-    const potElement = this.pot.element;
+    // Eerste pot in de uitvoer stoppen en tweede pot verstoppen
+    const outputPotElement = this.pot1.element;
+    const hiddenPotElement = this.pot2.element;
+    hiddenPotElement.style.display = "none";
+
     const outputRect = outputSlot.getBoundingClientRect();
     const workspaceRect = document
       .getElementById("workspace")
@@ -220,29 +277,60 @@ export default class MixingMachine {
     const newX =
       outputRect.left -
       workspaceRect.left +
-      (outputRect.width - potElement.offsetWidth) / 2;
+      (outputRect.width - outputPotElement.offsetWidth) / 2;
     const newY =
       outputRect.top -
       workspaceRect.top +
-      (outputRect.height - potElement.offsetHeight) / 2;
+      (outputRect.height - outputPotElement.offsetHeight) / 2;
 
-    potElement.style.left = newX + "px";
-    potElement.style.top = newY + "px";
-    potElement.style.zIndex = 5;
-    potElement.classList.add("mixed");
+    outputPotElement.style.left = newX + "px";
+    outputPotElement.style.top = newY + "px";
+    outputPotElement.style.zIndex = 5;
+    outputPotElement.classList.add("mixed");
 
-    this.pot = null;
+    this.combineIngredients(outputPotElement, hiddenPotElement);
+    this.combinePotColors(outputPotElement, hiddenPotElement);
+
+    this.pot1 = null;
+    this.pot2 = null;
   }
 
-  releasePot() {
-    if (!this.pot) {
-      return;
-    }
+  combineIngredients(targetPot, sourcePot) {
+    const sourceIngredients = sourcePot.querySelectorAll(".ingredient-in-pot");
 
-    const inputSlot = this.element.querySelector(".machine-input-slot");
-    inputSlot.textContent = "In";
+    sourceIngredients.forEach((ingredient) => {
+      const clone = ingredient.cloneNode(true);
+      targetPot.appendChild(clone);
+    });
 
-    this.pot = null;
+    const potLabel = targetPot.querySelector(".pot-label");
+    potLabel.textContent = `Gemengde Pot (${this.mixSpeed})`;
+  }
+
+  combinePotColors(targetPot, sourcePot) {
+    const targetColor = this.extractColor(targetPot.style.backgroundColor);
+    const sourceColor = this.extractColor(sourcePot.style.backgroundColor);
+
+    const red = Math.round((targetColor.r + sourceColor.r) / 2);
+    const green = Math.round((targetColor.g + sourceColor.g) / 2);
+    const blue = Math.round((targetColor.b + sourceColor.b) / 2);
+
+    targetPot.style.backgroundColor = `rgba(${red}, ${green}, ${blue}, 0.7)`;
+  }
+
+  releasePots() {
+    const inputSlot1 = this.element.querySelector(
+      ".machine-input-slot[data-slot-number='1']"
+    );
+    const inputSlot2 = this.element.querySelector(
+      ".machine-input-slot[data-slot-number='2']"
+    );
+
+    inputSlot1.textContent = "Pot 1";
+    inputSlot2.textContent = "Pot 2";
+
+    this.pot1 = null;
+    this.pot2 = null;
     this.isMixing = false;
   }
 

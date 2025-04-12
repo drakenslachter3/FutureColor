@@ -159,7 +159,7 @@ export default class Pot {
     if (this.ingredients.length === 0) {
       label.textContent = "Lege Pot";
     } else {
-      label.textContent = `Gekleurde Pot`;
+      label.textContent = `Gekleurde Pot (${this.mixSpeed})`;
     }
   }
 
